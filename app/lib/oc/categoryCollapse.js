@@ -21,13 +21,13 @@ function categorycollapse() {
     function template() {
         return [
             '<div class="visible-xs visible-sm visible-md">',
-            '<div class="col-xs-4">',
+            '<div class="col-xs-2">',
             '<a class="main-toggle" ng-click="isCollapsed = !isCollapsed" ng-class="{\'active\': !isCollapsed, \'\': isCollapsed}">',
             '<i ng-show="isCollapsed" class="fa fa-bars fa-2x toggle-btn"></i>',
             '<i ng-hide="isCollapsed" class="fa fa-times fa-2x toggle-btn"></i>',
             '</a>',
             '</div>',
-            '<div class="col-xs-4 nav-brand text-center">',
+            '<div class="col-xs-6 nav-brand text-center">',
             '<a href="catalog">',
             //'<img src="css/images/NVI/logo.png" />',
             '<img ng-src="{{user.LogoURL || user.Company.LogoUrl}}" />',

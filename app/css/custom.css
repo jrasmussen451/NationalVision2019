@@ -100,8 +100,6 @@ h2 {
 }
 
 .text-info {color:#000}
-.alert {margin-top:10px}
-.alert-info {background-color:#1f1f1f;color:#fff}
 .order-search-view .panel-body,
 .order-search-view .panel-table,
 .address-list-view .panel-body,
@@ -184,8 +182,15 @@ a:hover, a:focus {
     color: #5C8727;
 }
 
+/**************buttons*****************/
 .btn-primary {
     border-radius:0;
+}
+
+.btn-primary {
+    background-color: #fff;
+    color:#00529b;
+    border-color: #00529b;
 }
 
 .btn-primary:hover,
@@ -194,14 +199,6 @@ a:hover, a:focus {
 .btn-primary.active,
 .open .dropdown-toggle.btn-primary {
     color: #ffffff;
-}
-
-.btn-primary,
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
     background-color: #00529b;
     border-color: #00529b;
 }
@@ -221,6 +218,42 @@ a:hover, a:focus {
     border-color: #a6192e;
     color:#fff;
 }
+
+.eyeglass-world .btn-primary {
+    background-color: #fff;
+    color:#da291c;
+    border-color: #da291c;
+}
+
+.eyeglass-world .btn-primary:hover,
+.eyeglass-world .btn-primary:focus,
+.eyeglass-world .btn-primary:active,
+.eyeglass-world .btn-primary.active,
+.eyeglass-world .open .dropdown-toggle.btn-primary {
+    background-color: #da291c;
+    border-color: #da291c;
+    color:#fff;
+}
+
+/**************buttons*****************/
+
+/**************alerts*****************/
+.alert {margin-top:10px;border-radius:0}
+.alert-info {background-color:#1f1f1f;color:#fff}
+
+.alert-danger {
+    background-color: #f2dede;
+    border-color: #da291c;
+    color: #da291c;
+}
+
+.americas-best .alert-danger {
+    border-color: #a6192e;
+    color: #a6192e;
+}
+
+
+/**************alerts*****************/
 
 .container-view {
     background: #fff none repeat scroll 0 0;
@@ -471,13 +504,13 @@ a:hover, a:focus {
     padding:10px 20px;
 }
 
-.navbar-utility .dropdown-menu li a:hover {
+.dropdown-menu li a:hover {
     background-color:#003087; /*primary*/
     background-color:#00529b; /*secondary*/
     color:#fff;
 }
 
-.americas-best .navbar-utility .dropdown-menu li a:hover {
+.americas-best .dropdown-menu li a:hover {
     background-color:#0057b8; /*primary*/
     background-color:#a6192e; /*secondary*/
 }
@@ -491,22 +524,22 @@ a:hover, a:focus {
     background-color:#a6192e; /*secondary*/
 }
 
-.eyeglass-world .navbar-utility .dropdown-menu li a:hover {
+.eyeglass-world .dropdown-menu li a:hover {
     background-color:#007dba; /*primary*/
     background-color:#da291c; /*secondary*/
 }
 
-.walmart .navbar-utility .dropdown-menu li a:hover {
+.walmart .dropdown-menu li a:hover {
     background-color:#0072ce; /*primary*/
     background-color:#ffb81c; /*secondary*/
 }
 
-.fred-meyer .navbar-utility .dropdown-menu li a:hover {
+.fred-meyer .dropdown-menu li a:hover {
     background-color:#071d49; /*primary*/
     background-color:#da291c; /*secondary*/
 }
 
-.military .navbar-utility .dropdown-menu li a:hover {
+.military .dropdown-menu li a:hover {
     background-color:#002d72; /*primary*/
     background-color:#da291c; /*secondary*/
 }
@@ -515,13 +548,13 @@ a:hover, a:focus {
     margin-right:5px;
 }
 
-.dropdown-menu > li > a:hover,
+/*.dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus,
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
     background-color: #c08b0b;
-}
+}*/
 
 @media(min-width:992px) {
     #content {
@@ -800,17 +833,39 @@ minicart .minicart-detail {
 }
 /**************featured item*****************/
 
-.app-loading-indicator-cell {
+.app-loading-indicator-cell,
+.app-loading-indicator-cell p{
     background-color:#fff;
 }
 
-.app-loading-indicator-cell i {
-    color:#5C8727;
+.app-loading-indicator-cell i,
+.app-loading-indicator-cell p {
+    color:#003087; /*primary*/
 }
 
-.app-loading-indicator-cell p {
-    background-color: #ffffff;
-    color:#5C8727;
+.americas-best .app-loading-indicator-cell i,
+.americas-best .app-loading-indicator-cell p {
+    color:#0057b8; /*primary*/
+}
+
+.eyeglass-world .app-loading-indicator-cell i,
+.eyeglass-world .app-loading-indicator-cell p {
+    color:#007dba; /*primary*/
+}
+
+.walmart .app-loading-indicator-cell i,
+.walmart .app-loading-indicator-cell p {
+    color:#0072ce; /*primary*/
+}
+
+.fred-meyers .app-loading-indicator-cell i,
+.fred-meyers .app-loading-indicator-cell p {
+    color:#071d49; /*primary*/
+}
+
+.military .app-loading-indicator-cell i,
+.military .app-loading-indicator-cell p {
+    color:#002d72; /*primary*/
 }
 
 .jumbotron {
@@ -1194,10 +1249,22 @@ ul.burgers .badge {margin-left:3px;}
     height:auto;
 }
 
+@media(max-width:767px) {
+
+    .nav-brand {
+        padding:0;
+        line-height:1.4;
+    }
+
+    .nav-brand img {
+        /*margin-bottom:20px;*/
+    }
+}
+
 @media(max-width:991px) {
     .nav-brand img {
         /*width:40px;*/
-        margin-bottom:15px;
+        max-width:220px;
     }
 }
 
@@ -1210,7 +1277,7 @@ ul.burgers .badge {margin-left:3px;}
         overflow-y:scroll;
         overflow-x:hidden;
         /*max-height:720px;*/
-        max-height:820px;
+        max-height:800px;
     }
 }
 
@@ -1269,10 +1336,16 @@ ul.burgers .badge {margin-left:3px;}
 
 
 .menu-content .parent li {
-     background-color:#f2f2f2;
-     color:#4f4f4f;
-     text-transform:uppercase;
-     font-size:18px;
+    background-color: #f2f2f2;
+    color: #4f4f4f;
+    text-transform: uppercase;
+    font-size: 18px;
+}
+
+@media(min-width:768px) {
+    .menu-content .parent li {
+        font-size:14px;
+    }
 }
 
 @media(min-width:1199px) {

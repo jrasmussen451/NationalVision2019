@@ -3,6 +3,12 @@
 ### PM: Luke Paschka, Supply Logic
 ### Developer: Jen Rasmussen, Independent
 
+##### Github URL
+* https://github.com/jrasmussen451/NationalVision2019
+
+##### Converter URL
+* http://www.four51.com/Themes/Custom/78ad1fd0-1ab1-4bd2-9a1a-a556f7bc77dc/NationalVisionConverter/index.html
+
 # Merged files from NationalVision repository
 * js/controllers/contactUsCtrl.js
 * js/directives/productZoom.js
