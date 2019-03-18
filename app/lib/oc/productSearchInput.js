@@ -20,7 +20,7 @@ function productsearchinput() {
             '<div class="view-form-icon">',
             '<div class="input-group">',
             '<span class="input-group-btn">',
-            '<button type="submit" class="btn btn-inverse" ng-disabled="productSearchTerm == null || productSearchTerm == \'\'"><i class="fa fa-search"></i></button>',
+            '<button type="submit" class="btn btn-white" ng-disabled="productSearchTerm == null || productSearchTerm == \'\'"><i class="fa fa-search"></i></button>',
             '</span>',
             '<input type="text" class="form-control" placeholder="{{\'Search\' | r}}" ng-model="productSearchTerm"/>',
             /*'<i class="fa fa-search"></i>',

@@ -5,9 +5,9 @@
 	<!--headscriptToken-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Store | US Foods</title>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="css/images/favicon-16x16.ico" type="image/x-icon">
+    <title>Store | National Vision, Inc.</title>
+	<link rel="shortcut icon" href="css/images/NVI/favicon.gif" type="image/x-icon">
+	<link rel="icon" href="css/images/NVI/favicon.gif" type="image/x-icon">
 	<link rel="stylesheet" href="css/bootstrap-451.css" data-group="source" />
 	<link rel="stylesheet" href="css/editor.css" data-group="source" />
 	<link rel="stylesheet" href="css/theme.css" data-group="source" />
@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/animate.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Oswald:400,500,700" rel="stylesheet">
+    <!--FontAwesome 5 Free-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!--[if lt IE 9]>
     <div style="position:absolute; top:0; left:0; right:0; bottom:0; background-position:center center; background-size:cover; background-repeat:no-repeat;"></div>
     <div style="margin:50px auto 0; max-width:600px; text-align: center; padding:20px; border:3px solid#f58220;font-family: Arial, Helvetica, sans-serif;">
@@ -42,8 +44,8 @@
     <section ng-hide="Four51User.isAuthenticated() || isAnon" class="container">
         <login />
     </section>
-
-    <section ng-if="Four51User.isAuthenticated()" id="content"  ng-class="{'catalog': isActive('catalog')}">
+    <section ng-if="Four51User.isAuthenticated()" id="content"  ng-class="{'catalog': isActive('catalog'), 'walmart': user.LogoName == 'Walmart', 'americas-best': user.LogoName == 'AmericasBest',
+    'military': user.LogoName == 'Military', 'fred-meyer': user.LogoName == 'FredMeyer', 'eyeglass-world': user.LogoName == 'EyeglassWorld'}">
 
         <!--<section class="hidden-print hidden-xs container-header">
             <navigation></navigation>
@@ -78,13 +80,14 @@
 
         </section>
 
-        <section class="hidden-print">
+        <!--<section class="hidden-print">
             <copyright ng-if="!user.Permissions.contains('UnBrandedSite')" />
-        </section>
+        </section>-->
 
     </section>
 
-    <backtotop offsetbottom="40" offsetright="10" duration="200"></backtotop>
+    <backtotop offsetbottom="40" offsetright="10" duration="200" ng-class="{'catalog': isActive('catalog'), 'walmart': user.LogoName == 'Walmart', 'americas-best': user.LogoName == 'AmericasBest',
+    'military': user.LogoName == 'Military', 'fred-meyer': user.LogoName == 'FredMeyer', 'eyeglass-world': user.LogoName == 'EyeglassWorld'}"></backtotop>
 </section>
 
     <!--<script type="text/javascript" src="//dl1d2m8ri9v3j.cloudfront.net/releases/1.2.4/tracker.js" data-customer="bfec7bded14d43a7ace2697594e1369d"></script>-->
@@ -173,6 +176,8 @@
     <script src="js/controllers/orderTypeSelectorCtrl.js" data-group="source"></script>
     <script src="js/controllers/reportViewCtrl.js" data-group="source"></script>
     <script src="js/controllers/kitCtrl.js" data-group="source"></script>
+<!--custom-->
+<script src="js/controllers/contactUsCtrl.js" data-group="source"></script>
 
     <script src="js/interceptors.js" data-group="source"></script>
     <script src="js/services/errorService.js" data-group="source"></script>
@@ -204,9 +209,15 @@
     <script src="js/services/XLATTables.js" data-group="source"></script>
     <script src="js/services/XLATService.js" data-group="source"></script>
     <script src="js/services/kitService.js" data-group="source"></script>
+
+<!--?-->
     <script src="js/services/tableTentImageSelector.js" data-group="source"></script>
     <script src="js/services/menuImageSelector.js" data-group="source"></script>
     <script src="js/services/punchoutService.js" data-group="source"></script>
+<!--custom-->
+<script src="js/services/emailService.js" data-group="source"></script>
+<script src="js/services/logoService.js" data-group="source"></script>
+<script src="js/services/buyerResourceService.js" data-group="source"></script>
 
     <script src="js/factories/fileReader.js" data-group="source"></script>
 
