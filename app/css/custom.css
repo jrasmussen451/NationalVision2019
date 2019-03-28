@@ -64,6 +64,57 @@ h2 {
     text-transform:uppercase;
 }
 
+.btn {
+    border-radius:0;
+}
+
+/*default bootstrap fall backs*/
+.btn-success {
+    background-color:#28a745;
+    border-color:#28a745;
+}
+
+.btn-success:hover {
+    background-color:#218838;
+    border-color:#1e7e34;
+}
+
+.btn-danger {
+    background-color:#dc3545;
+    border-color:#dc3545;
+}
+
+.btn-danger:hover {
+    background-color:#c82333;
+    border-color:#bd2130;
+}
+
+.btn-warning {
+    background-color:#ffc107;
+    border-color:#ffc107;
+}
+
+.btn-warning:hover {
+    background-color:#e0a800;
+    border-color:#d39e00;
+}
+
+.btn-info {
+    background-color:#17a2b8;
+    border-color:#17a2b8;
+}
+
+.btn-info:hover {
+    background-color:#117a8b;
+    border-color:#10707f;
+}
+
+.text-danger {
+    color:#dc3545;
+}
+/*default bootstrap fall backs*/
+
+/*change this to secondary? #6c757d*/
 .btn-info,
 .btn-info:hover,
 .btn-info:focus,
@@ -98,6 +149,7 @@ h2 {
 .btn-success .badge {
     color: #5C8727;
 }
+
 
 .text-info {color:#000}
 .order-search-view .panel-body,
@@ -152,10 +204,15 @@ categorycollapse .dropdown-menu li a i {
     margin-right:5px;
 }
 
+@media(max-width:579px) {
+    categorycollapse .fa-2x {
+        font-size:1.6em;
+    }
+}
+
 figure {
     margin: 0;
 }
-
 
 @media(max-width:767px) {
     body > section > section {
@@ -179,7 +236,7 @@ a:hover, a:focus {
 
 .text-success,
 .view-form-icon .quantity div input {
-    color: #5C8727;
+    color: #28a745;
 }
 
 /**************buttons*****************/
@@ -219,6 +276,10 @@ a:hover, a:focus {
     color:#fff;
 }
 
+.americas-best .text-primary {
+    color:#a6192e;
+}
+
 .eyeglass-world .btn-primary {
     background-color: #fff;
     color:#da291c;
@@ -233,6 +294,10 @@ a:hover, a:focus {
     background-color: #da291c;
     border-color: #da291c;
     color:#fff;
+}
+
+.eyeglass-world .text-primary {
+    color:#da291c;
 }
 
 /**************buttons*****************/
@@ -481,8 +546,7 @@ a:hover, a:focus {
 }
 
 .navbar-utility li {
-    /*float:left;*/
-    float:right;
+    float:left;
     color:#fff;
     padding:0 15px;
 }
@@ -646,7 +710,7 @@ categorymodal a.categories {
     background-color: transparent;
 }
 
-.text-gold {color:#c08b0b}
+.text-gold {color:#ffc107}
 .text-blue {color:#003087}
 
 .americas-best .text-blue {color:#0057b8}
@@ -656,9 +720,9 @@ categorymodal a.categories {
 .military .text-blue {color:#002d72}
 
 .minicart .text-muted{color: #717073}
-.minicart .text-primary{color:#D4472B}
+/*.minicart .text-primary{color:#D4472B}*/
 .minicart .text-white{color:#fff}
-.minicart .bg-gold {background-color:#c08b0b}
+.minicart .bg-gold {background-color:#ffc107}
 
 minicart:active .minicart-detail, minicart:focus .minicart-detail, minicart:hover .minicart-detail {display: block;}
 minicart .minicart-detail {
@@ -893,10 +957,10 @@ minicart .minicart-detail {
 
 .category-header h1 {
     position:absolute;
-    bottom:40px;
+    /*bottom:40px;*/
+    bottom:10%;
     left:10px;
-    font-size:1.6em;
-    color:#2f2f2f;
+    font-size:2em;
     text-transform:uppercase;
     font-weight:bold;
     color:#fff;
@@ -909,8 +973,9 @@ minicart .minicart-detail {
         margin-bottom:-50px; /*reposition here to allow for pages to not have a category-header*/
     }
     .category-header h1 {
-        bottom:0px;
-        left:40px;
+        /*bottom:0px;
+        left:40px;*/
+        bottom:5%;
         font-size:4.8rem;
     }
 }
@@ -997,9 +1062,14 @@ ordersummary .text-info {color:grey}
     box-shadow:none;
 }
 
+.thumbnail img {
+    max-height:100%;
+}
+
 .panel-product-list .thumbnail img {
     margin: 0 auto 15px;
     max-height:100%;
+    /*need to update width to 500px but not all images are 500x500*/
     height:auto;
 }
 
@@ -1255,13 +1325,12 @@ ul.burgers .badge {margin-left:3px;}
         padding:0;
         line-height:1.4;
     }
-
-    .nav-brand img {
-        /*margin-bottom:20px;*/
-    }
 }
 
 @media(max-width:991px) {
+    .nav-brand {
+        margin-bottom:20px;
+    }
     .nav-brand img {
         /*width:40px;*/
         max-width:220px;
@@ -1350,7 +1419,7 @@ ul.burgers .badge {margin-left:3px;}
 
 @media(min-width:1199px) {
     .menu-content .parent li {
-        font-size:20px;
+        font-size:18px; /*20px*/
     }
 }
 
@@ -1422,7 +1491,7 @@ ul.burgers .badge {margin-left:3px;}
 @media(min-width:1199px) {
     .menu-content .parent li a {
         color:#4f4f4f;
-        padding:20px 15px;
+        padding:20px 5px;
     }
 }
 
