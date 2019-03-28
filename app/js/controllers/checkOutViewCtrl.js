@@ -1,5 +1,5 @@
-four51.app.controller('CheckOutViewCtrl', ['$scope', '$routeParams', '$location', '$filter', '$rootScope', '$451', 'User', 'Order', 'OrderConfig', 'FavoriteOrder', 'AddressList', 'GoogleAnalytics',
-function ($scope, $routeParams, $location, $filter, $rootScope, $451, User, Order, OrderConfig, FavoriteOrder, AddressList, GoogleAnalytics) {
+four51.app.controller('CheckOutViewCtrl', ['$scope', '$routeParams', '$location', '$filter', '$rootScope', '$451', 'User', 'Order', 'OrderConfig', 'FavoriteOrder', 'AddressList', 'GoogleAnalytics', 'Resources',
+function ($scope, $routeParams, $location, $filter, $rootScope, $451, User, Order, OrderConfig, FavoriteOrder, AddressList, GoogleAnalytics, Resources) {
 	$scope.errorSection = 'open';
 
 	$scope.isEditforApproval = $routeParams.id != null && $scope.user.Permissions.contains('EditApprovalOrder');
@@ -16,15 +16,39 @@ function ($scope, $routeParams, $location, $filter, $rootScope, $451, User, Orde
 	$scope.hasOrderConfig = OrderConfig.hasConfig($scope.currentOrder, $scope.user);
 	$scope.checkOutSection = $scope.hasOrderConfig ? 'order' : 'shipping';
 
+	/*PW-15096 Custom Order Field*/
+	angular.forEach($scope.currentOrder.OrderFields, function (field) {
+		if (field.Name == "NVISupplierShipDay") {
+			switch ($scope.user.LogoName) {
+				case "Walmart":
+					field.Value = 'Thursday';
+					break;
+				case "AmericasBest":
+					field.Value = 'Monday / Tuesday';
+					break;
+				case "EyeglassWorld":
+					field.Value = 'Wednesday';
+					break;
+				case "Military":
+					field.Value = 'Wednesday';
+					break;
+				case "FredMeyer":
+					field.Value = 'Wednesday';
+					break;
+			}
+		}
+	});
+	/*PW-15096 Custom Order Field*/
+
     function submitOrder() {
 	    $scope.displayLoadingIndicator = true;
 		$scope.submitClicked = true;
 	    $scope.errorMessage = null;
         Order.submit($scope.currentOrder,
 	        function(data) {
-				if ($scope.user.Company.GoogleAnalyticsCode) {
+				/*if ($scope.user.Company.GoogleAnalyticsCode) {
 					GoogleAnalytics.ecommerce(data, $scope.user);
-				}
+				}*/
 				$scope.user.CurrentOrderID = null;
 				User.save($scope.user, function(data) {
 			        $scope.user = data;
@@ -41,13 +65,7 @@ function ($scope, $routeParams, $location, $filter, $rootScope, $451, User, Orde
 		        $scope.shippingFetchIndicator = false;
 	        }
         );
-    };
-
-	angular.forEach($scope.user.CustomFields, function(field){
-		if(field.Name == "DefaultCostCenter"){
-			$scope.currentOrder.CostCenter = field.Value;
-		}
-	});
+    }
 
 	$scope.$watch('currentOrder.CostCenter', function() {
 		OrderConfig.address($scope.currentOrder, $scope.user);

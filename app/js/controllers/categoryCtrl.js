@@ -7,7 +7,7 @@ function ($routeParams, $sce, $scope, $451, Category, Product, Nav) {
 	};
 	$scope.trusted = function(d){
 		if(d) return $sce.trustAsHtml(d);
-	}
+	};
 
 	function _search() {
 		$scope.searchLoading = true;
@@ -26,12 +26,18 @@ function ($routeParams, $sce, $scope, $451, Category, Product, Nav) {
 
 	if ($routeParams.categoryInteropID) {
 	    $scope.categoryLoadingIndicator = true;
+		//merged from NationalVision
+		//.navStatus = Nav.set(true); //breaks
+		//
         Category.get($routeParams.categoryInteropID, function(cat) {
             $scope.currentCategory = cat;
 	        $scope.categoryLoadingIndicator = false;
         });
     }
 	else if($scope.tree){
+		//merged from NationalVision
+		//$scope.navStatus = Nav.set(false); //breaks
+		//
 		$scope.currentCategory ={SubCategories:$scope.tree};
 	}
 

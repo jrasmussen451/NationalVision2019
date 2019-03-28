@@ -1,25 +1,19 @@
-four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeParams', '$window', 'ProductDisplayService', 'Variant', 'Order',
-function ($scope, $location, $route, $routeParams, $window, ProductDisplayService, Variant, Order) {
-    $scope.isEditforApproval = $routeParams.orderID && $scope.user.Permissions.contains('EditApprovalOrder');
-    $scope.EditingLineItem = (typeof($routeParams.lineItemIndex) != 'undefined');
-    if ($scope.EditingLineItem) $scope.LineItemIndex = $routeParams.lineItemIndex;
-    if ($scope.isEditforApproval) {
-        Order.get($routeParams.orderID, function(order) {
-            $scope.currentOrder = order;
-            init();
-        });
-    }
-    else {init()}
+four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeParams', '$window', 'ProductDisplayService', 'Variant', 'User', 'Resources', 'BuyerResources',
+    function ($scope, $location, $route, $routeParams, $window, ProductDisplayService, Variant, User, Resources, BuyerResources) {
 
-    function init() {
+        /*custom*/
+        $scope.addresses = BuyerResources.addresses;
+        /*custom*/
+
         $scope.variantErrors = [];
         var varID = $routeParams.variantInteropID == 'new' ? null :  $routeParams.variantInteropID;
         $scope.loadingImage = true;
         ProductDisplayService.getProductAndVariant($routeParams.productInteropID, varID, function(data){
             $scope.Product = data.product;
-            if(varID)
+            if(varID) {
                 $scope.Variant = data.variant;
-            else{
+            }
+            else {
                 $scope.Variant = {};
                 $scope.Variant.ProductInteropID = $scope.Product.InteropID;
                 $scope.Variant.Specs = {};
@@ -30,7 +24,179 @@ function ($scope, $location, $route, $routeParams, $window, ProductDisplayServic
                     }
                 });
             }
+            $scope.PID = $scope.Product.ExternalID;
+            setSpecs();
+            populateData();
         });
+
+        function setSpecs() {
+            $scope.userDetails = {};
+            $scope.userDetails.Name = $scope.user.FirstName + ' ' + $scope.user.LastName;
+
+            if ($scope.PID === 'AB-BCM') {
+                $scope.userDetails.managerTitle = "General Manager";
+            }
+            else {
+                $scope.userDetails.managerTitle = "Manager";
+            }
+            angular.forEach($scope.user.Groups, function (group) {
+                $scope.userDetails.Store = group.Name;
+            });
+
+            $scope.UseAbbrTitle = ["AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-Rx pads", "AB-DREX-TPA pads"];
+
+            angular.forEach($scope.addresses, function (address) {
+                if ($scope.userDetails.Store == address.Store) {
+                    if ($scope.UseAbbrTitle.indexOf($scope.PID) > -1) {
+                        $scope.userDetails.doctorAbbrTitle = address.AbbrTitle;
+                        $scope.userDetails.RxPadStores = address.RxPadStores;
+                    }
+                    if ($scope.UseAbbrTitle.indexOf($scope.PID) <= -1) {
+                        $scope.userDetails.doctorTitle = address.Title;
+                    }
+                    $scope.userDetails.Drex = address.Drex;
+
+                    /*these are the two variables that vary depending on whether product needs to show Center*/
+                    $scope.userDetails.Address = address.Center;
+                    $scope.userDetails.Address2 = address.Address;
+                    /*these are the two variables that vary depending on whether product needs to show Center*/
+
+                    $scope.userDetails.City = address.City;
+                    $scope.userDetails.State = address.State;
+                    $scope.userDetails.Zip = address.ZIP;
+                    $scope.userDetails.Zip4 = address.ZIP4;
+                    $scope.userDetails.Phone = address.Phone;
+                    $scope.userDetails.Fax = address.Fax;
+                    $scope.userDetails.Email = address.Email;
+                }
+            });
+        }
+
+        function populateData() {
+            if ($scope.Variant && $scope.Variant.Specs) {
+                if ($scope.Variant.Specs.Store && $scope.userDetails.Store) {
+                    $scope.Variant.Specs.Store.Value = $scope.userDetails.Store;
+                }
+                if ($scope.Variant.Specs.Title) {
+                    if ($scope.UseAbbrTitle.indexOf($scope.PID) > -1) {
+                        $scope.Variant.Specs.Title.Value = $scope.userDetails.doctorAbbrTitle;
+                    }
+                    if ($scope.UseAbbrTitle.indexOf($scope.PID) <= -1) {
+                        $scope.Variant.Specs.Title.Value = $scope.userDetails.doctorTitle;
+                    }
+                    $scope.ReadOnly = ["AB-BCD", "AB-BCDapptex", "AB-BCDex", "EGW-BCD", "WM-BCD", "WM-BCED", "AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-Rx pads", "AB-DREX-TPA pads"];
+                    if ($scope.ReadOnly.indexOf($scope.PID) > -1) {
+                        $scope.Variant.Specs.Title.ReadOnly = true;
+                    }
+                }
+                if ($scope.Variant.Specs.Title && $scope.userDetails.managerTitle) {
+                    $scope.ReadOnly = ["AB-BCM", "EGW-BCM", "FM-BCM", "FM-I-BCM", "MIL-BCM", "WM-BCM"];
+                    if ($scope.ReadOnly.indexOf($scope.PID) > -1) {
+                        $scope.Variant.Specs.Title.Value = $scope.userDetails.managerTitle;
+                        $scope.Variant.Specs.Title.ReadOnly = true;
+                    }
+                }
+                if ($scope.Variant.Specs.Store && $scope.userDetails.Store) {
+                    $scope.Variant.Specs.Store.Value = $scope.userDetails.Store;
+                    if ($scope.userDetails.Store) { $scope.Variant.Specs.Store.ReadOnly = true; }
+                }
+
+                if ($scope.userDetails.RxPadStores) {
+
+                    var stores = $scope.userDetails.RxPadStores;
+                    stores = stores.split(",");
+                    $scope.userDetails.stores = stores;
+
+                    $scope.userDetails.authPadAddresses = [];
+                    angular.forEach($scope.userDetails.stores, function (store) {
+                        angular.forEach($scope.addresses, function (address) {
+                            if (store == address.Store) {
+                                $scope.userDetails.authPadAddresses.push(address);
+                            }
+                        });
+                    });
+
+                    var counter = 1;
+                    angular.forEach($scope.userDetails.authPadAddresses, function (authAddress) {
+                        var curBacker = 'BackerAddress' + counter;
+                        var curAddress = authAddress;
+                        $scope.Variant.Specs[curBacker].Value = curAddress.Address + ", " + curAddress.City + ", " + curAddress.State + ", " + curAddress.ZIP + " " + curAddress.Phone + " Fax: " + curAddress.Fax;
+                        counter++;
+                    });
+                }
+
+                /*AB-BCS is the only one that uses StoreNumber*/
+                if ($scope.Variant.Specs.StoreNumber && $scope.userDetails.Store) {
+                    $scope.Variant.Specs.StoreNumber.Value = $scope.userDetails.Store;
+                    if ($scope.userDetails.Store) $scope.Variant.Specs.StoreNumber.ReadOnly = true;
+                }
+                if ($scope.Variant.Specs.Drex && $scope.userDetails.Drex) {
+                    $scope.Variant.Specs.Drex.Value = $scope.userDetails.Drex;
+                    if ($scope.userDetails.Drex) $scope.Variant.Specs.Drex.ReadOnly = true;
+                }
+
+                /*conditionals for whether a product has Address 2 - if it does then Center goes in Address / Address1 - if it doesnt Address goes in Address / Address1*/
+                if (($scope.Variant.Specs.Address && !$scope.Variant.Specs.Address2) && $scope.userDetails.Address2) {
+                    $scope.Variant.Specs.Address.Value = $scope.userDetails.Address2;
+                    if ($scope.userDetails.Address2) $scope.Variant.Specs.Address.ReadOnly = true;
+                }
+                if (($scope.Variant.Specs.Address1 && !$scope.Variant.Specs.Address2) && $scope.userDetails.Address2) {
+                    $scope.Variant.Specs.Address1.Value = $scope.userDetails.Address2;
+                    if ($scope.userDetails.Address2) $scope.Variant.Specs.Address1.ReadOnly = true;
+                }
+                if (($scope.Variant.Specs.Address && $scope.Variant.Specs.Address2) && $scope.userDetails.Address2) {
+                    $scope.Variant.Specs.Address.Value = $scope.userDetails.Address;
+                    $scope.Variant.Specs.Address2.Value = $scope.userDetails.Address2;
+                    if ($scope.userDetails.Address) $scope.Variant.Specs.Address.ReadOnly = true;
+                    if ($scope.userDetails.Address2) $scope.Variant.Specs.Address2.ReadOnly = true;
+                }
+                if (($scope.Variant.Specs.Address1 && $scope.Variant.Specs.Address2) && $scope.userDetails.Address2) {
+                    $scope.Variant.Specs.Address1.Value = $scope.userDetails.Address;
+                    $scope.Variant.Specs.Address2.Value = $scope.userDetails.Address2;
+                    if ($scope.userDetails.Address) $scope.Variant.Specs.Address1.ReadOnly = true;
+                    if ($scope.userDetails.Address2) $scope.Variant.Specs.Address2.ReadOnly = true;
+                }
+                /*conditionals for whether a product has Address 2 - if it does then Center goes in Address / Address1 - if it doesnt Address goes in Address / Address1*/
+
+
+                if ($scope.Variant.Specs.City && $scope.userDetails.City) {
+                    $scope.Variant.Specs.City.Value = $scope.userDetails.City;
+                    if ($scope.userDetails.City) $scope.Variant.Specs.City.ReadOnly = true;
+                }
+                if ($scope.Variant.Specs.State && $scope.userDetails.State) {
+                    $scope.Variant.Specs.State.Value = $scope.userDetails.State;
+                    if ($scope.userDetails.State) $scope.Variant.Specs.State.ReadOnly = true;
+                }
+                /*if the variable spec name is Zip*/
+                if ($scope.Variant.Specs.Zip && $scope.userDetails.Zip) {
+                    $scope.Variant.Specs.Zip.Value = $scope.userDetails.Zip + ' ';
+                    if ($scope.userDetails.Zip) $scope.Variant.Specs.Zip.ReadOnly = true;
+                }
+                /*if the variable spec name is ZipCode*/
+                if ($scope.Variant.Specs.ZipCode && $scope.userDetails.Zip) {
+                    $scope.Variant.Specs.ZipCode.Value = $scope.userDetails.Zip + ' ';
+                    if ($scope.userDetails.Zip) $scope.Variant.Specs.ZipCode.ReadOnly = true;
+                }
+                /*if there is variable spec of Zip4 - as of 012816 no Zip4's
+                 if ($scope.Variant.Specs.Zip4 && $scope.userDetails.Zip4) {
+                 $scope.Variant.Specs.Zip4.Value = $scope.userDetails.Zip4;
+                 if ($scope.userDetails.Zip4) $scope.Variant.Specs.Zip4.ReadOnly = true;
+                 } */
+                if ($scope.Variant.Specs.Phone && $scope.userDetails.Phone) {
+                    $scope.Variant.Specs.Phone.Value = $scope.userDetails.Phone;
+                    if ($scope.userDetails.Phone) $scope.Variant.Specs.Phone.ReadOnly = true;
+                }
+                if ($scope.Variant.Specs.Fax && $scope.userDetails.Fax) {
+                    $scope.Variant.Specs.Fax.Value = $scope.userDetails.Fax;
+                    if ($scope.userDetails.Fax) $scope.Variant.Specs.Fax.ReadOnly = true;
+                }
+                if ($scope.Variant.Specs.Email && $scope.userDetails.Email) {
+                    $scope.Variant.Specs.Email.Value = $scope.userDetails.Email;
+                    if ($scope.userDetails.Email) $scope.Variant.Specs.Email.ReadOnly = true;
+                }
+            }
+        }
+
         function validateVariant(){
             if(!$scope.Variant) return;
             var newErrors = [];
@@ -40,6 +206,7 @@ function ($scope, $location, $route, $routeParams, $window, ProductDisplayServic
             });
             $scope.variantErrors = newErrors;
         }
+
         $scope.$watch('Variant.Specs', function(o, n){
             validateVariant();
         }, true);
@@ -47,25 +214,13 @@ function ($scope, $location, $route, $routeParams, $window, ProductDisplayServic
             if($scope.variantErrors.length){
                 $scope.showVariantErrors = true;
                 if(!hideErrorAlert)
-                    $window.alert("please fill in all required fields"); //the default spec form should be made to deal with showing $scope.variantErrors, but it's likely existing spec forms may not deal with $scope.variantErrors
+                    $window.alert("please fill in all required fields");
+                //the default spec form should be made to deal with showing $scope.variantErrors, but it's likely existing spec forms may not deal with $scope.variantErrors
                 return;
             }
             if(saveNew) $scope.Variant.InteropID = null;
             Variant.save(variant, function(data){
-                if ($scope.isEditforApproval || $scope.EditingLineItem) {
-                    if (saveNew) {
-                        $location.path('/product/' + $scope.Product.InteropID + '/'+ data.InteropID + '/' + $scope.currentOrder.ID);
-                    }
-                    else {
-                        $scope.currentOrder.LineItems[$scope.LineItemIndex].Variant = data;
-                        Order.save($scope.currentOrder, function(o) {
-                            $location.path('/cart/' + $scope.Product.InteropID + '/' + o.ID + '/' + $scope.LineItemIndex)
-                        });
-                    }
-                }
-                else {
-                    $location.path('/product/' + $scope.Product.InteropID + '/'+ data.InteropID);
-                }
+                $location.path('/product/' + $scope.Product.InteropID + '/'+ data.InteropID);
             });
         }
         $scope.save = function(hideErrorWindowAlert){
@@ -80,16 +235,15 @@ function ($scope, $location, $route, $routeParams, $window, ProductDisplayServic
             $scope.loadingImage = !result;
             $scope.$apply();
         });
-    }
 
-    /*Check for the presence of the null value when there is a custom user field default value and replace it with a blank value.  Case #124640 / SPA-15424*/
-    $scope.$watch('Variant', function(val) {
-        if (!val) return;
-        angular.forEach(val.Specs, function(s){
-            if(s.Value == "null"){
-                s.Value = "";
-            }
+        /*Check for the presence of the null value when there is a custom user field default value and replace it with a blank value.  Case #124640 / SPA-15424*/
+        $scope.$watch('Variant', function(val) {
+            if (!val) return;
+            angular.forEach(val.Specs, function(s){
+                if(s.Value == "null"){
+                    s.Value = "";
+                }
+            });
         });
-    });
-
-}]);
+    }
+]);

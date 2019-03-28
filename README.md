@@ -26,12 +26,12 @@
 
 # Logos based on user group (Example User Group Store #s)
 
-* National Vision (none)
-* AC Lens (??)
+* National Vision (none) - this is too tall on mobile
+* AC Lens (??) per luke, ok to ignore 
 * americas-best (5101)
-* eyeglass-world (8201)
+* eyeglass-world (8201) - this is too tall on mobile
 * walmart (140)
-* fred-meyer (7603)
+* fred-meyer (7603) - this is too tall on mobile
 * military (6103)
 
 
@@ -41,3 +41,10 @@
 * The default image can be overridden on a category basic by using the category description to house an image
 * ex: xxxx
 
+#Items where 2019 was newer
+* addressListCtrl.js - change in scope.checkAll (36-37)
+* approvalInputCtrl.js - inclusion of Address (1-29)
+* cartCtrl.js - includes Punchout (1-25)
+* categoryCtrl.js - navStatus (29-31, 38-40) - commented out, breaks and we probably don't need
+* checkOutViewCtrl.js - Custom Order Field (19-41) | analytics (49-51)
+* Four51Ctrl.js - adds Punchout
