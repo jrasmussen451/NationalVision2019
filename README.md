@@ -48,3 +48,18 @@
 * categoryCtrl.js - navStatus (29-31, 38-40) - commented out, breaks and we probably don't need
 * checkOutViewCtrl.js - Custom Order Field (19-41) | analytics (49-51)
 * Four51Ctrl.js - adds Punchout
+
+* navService.js
+* orderConfigService.js
+* orderService.js
+* productDisplayService.js
+* productService.js
+* securityService.js
+* XLATTables.js
+* config/js
+* routing/js 
+
+
+# Bugs
+* Spec Form Control 
+* a message stating you must view the pdf doesnt allow you to add an item to the cart: https://nationalvision.four51storefront.com/NVI2019/product/AB-BCDapptex/A9E8BEB7-AB22-4D41-B985-E01A1E79D8BE

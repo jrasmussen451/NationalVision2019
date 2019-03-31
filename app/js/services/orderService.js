@@ -23,6 +23,7 @@ four51.app.factory('Order', ['$resource', '$rootScope', '$451', 'Security', 'Err
 		}
 		order.IsMultipleShip = function() {
 			var multi = false;
+			//if (_multipleShip && order.LineItems[0].ShipAddressID == null) return true;
 			if (_multipleShip) return true;
 			angular.forEach(order.LineItems, function(li, i) {
 				if (multi) return;
@@ -45,7 +46,7 @@ four51.app.factory('Order', ['$resource', '$rootScope', '$451', 'Security', 'Err
 			}
 		});
 
-        order.BillingEnabled = (order.Total > 0 || (order.Total == 0 && user.Company.BillZeroPriceOrders));
+        order.BillingEnabled = (order.Total > 0 || (order.Total === 0 && user.Company.BillZeroPriceOrders));
         //order.PaymentMethod = order.BillingEnabled ? order.PaymentMethod : 'Undetermined';
 	}
 
