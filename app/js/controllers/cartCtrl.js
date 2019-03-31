@@ -1,28 +1,7 @@
-four51.app.controller('CartViewCtrl', ['$scope', '$routeParams', '$location', '$451', 'Order', 'OrderConfig', 'User', 'Punchout', '$sce', '$timeout', '$window',
-	function ($scope, $routeParams, $location, $451, Order, OrderConfig, User, Punchout, $sce, $timeout, $window) {
-		//Punchout
-		if($scope.PunchoutUser){
-			$scope.punchouturl = $sce.trustAsResourceUrl(Punchout.punchoutSession.PunchOutPostURL);
-		}
-		$scope.submitPunchoutOrder = function () {
-			$scope.saveChanges(function (data) {
-				Punchout.save($scope.currentOrder.ID, function(){
-					Punchout.getForm(function (form) {
-						$scope.punchoutForm = form;
-						$timeout(function () {
-							$window.document.getElementById('punchoutForm').submit();
-						}, 10);
-					},function (err) {
-						$scope.errorMessage = err.Message;
-					});
-				},function(ex){
-					$scope.errorMessage = ex.Message;
-				});
-			}, true);
-		};
-
-		$scope.isEditforApproval = $routeParams.id != null && $scope.user.Permissions.contains('EditApprovalOrder');
-		if ($scope.isEditforApproval) {
+four51.app.controller('CartViewCtrl', ['$window', '$scope', '$routeParams', '$location', '$451', 'Order', 'OrderConfig', 'User',
+	function ($window, $scope, $routeParams, $location, $451, Order, OrderConfig, User) {
+		var isEditforApproval = $routeParams.id != null && $scope.user.Permissions.contains('EditApprovalOrder');
+		if (isEditforApproval) {
 			Order.get($routeParams.id, function(order) {
 				$scope.currentOrder = order;
 				// add cost center if it doesn't exists for the approving user
@@ -123,12 +102,12 @@ four51.app.controller('CartViewCtrl', ['$scope', '$routeParams', '$location', '$
 
 		$scope.checkOut = function() {
 			$scope.displayLoadingIndicator = true;
-			if (!$scope.isEditforApproval)
+			if (!isEditforApproval)
 				OrderConfig.address($scope.currentOrder, $scope.user);
 			Order.save($scope.currentOrder,
 				function(data) {
 					$scope.currentOrder = data;
-					$location.path($scope.isEditforApproval ? 'checkout/' + $routeParams.id : 'checkout');
+					$location.path(isEditforApproval ? 'checkout/' + $routeParams.id : 'checkout');
 					$scope.displayLoadingIndicator = false;
 				},
 				function(ex) {
@@ -138,12 +117,28 @@ four51.app.controller('CartViewCtrl', ['$scope', '$routeParams', '$location', '$
 			);
 		};
 
+		//require users to download PDF if certian items are ordered
+		var downloadItemList = ["NJ_CL_Pads","NJNDBlnkPd","NJ_Blank_Pads","NJNDRxPads","NJ_Rx_Pads","NJNDCLPads"];
+
+		$scope.downloadItem = function(){
+			$window.open("https://www.four51.com/Themes/Custom/78ad1fd0-1ab1-4bd2-9a1a-a556f7bc77dc/nvi_assets/NJ%20Rx%20Pad%20Authorization%20Fillable.pdf");
+			$scope.itemDownloaded = true;
+			$scope.downloadItemInCart = false;
+		};
+
 		$scope.$watch('currentOrder.LineItems', function(newval) {
 			var newTotal = 0;
 			if (!$scope.currentOrder) return newTotal;
+			$scope.downloadItemInCart = false;
 			angular.forEach($scope.currentOrder.LineItems, function(item){
-				if (item.IsKitParent)
+				if (item.IsKitParent){
 					$scope.cart.$setValidity('kitValidation', !item.KitIsInvalid);
+				}
+				if(downloadItemList.indexOf(item.Product.InteropID) != -1){
+					if(!$scope.itemDownloaded){
+						$scope.downloadItemInCart = true;
+					}
+				}
 				newTotal += item.LineTotal;
 			});
 			$scope.currentOrder.Subtotal = newTotal;
@@ -167,9 +162,5 @@ four51.app.controller('CartViewCtrl', ['$scope', '$routeParams', '$location', '$
 
 		$scope.cancelEdit = function() {
 			$location.path('order');
-		};
-
-		$scope.downloadProof = function(item) {
-			window.location = item.Variant.ProofUrl;
 		};
 	}]);

@@ -4,9 +4,17 @@
             <figure ng-show="LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl" >
                 <img ng-src="{{LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl}}"/>
             </figure>
-            <div class="empty" ng-hide="LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl">
+            <!--<div class="empty" ng-hide="LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl">
                 <span class="fa empty"><i class="fa fa-camera"></i></span>
+            </div>-->
+            <div class="empty" ng-hide="LineItem.Variant.SmallImageUrl || LineItem.Product.SmallImageUrl">
+                <span class="empty">
+                    <i class="fa fa-camera fa-2x text-info"></i>
+                    <br />
+                    <span class="text-info">Image coming soon</span>
+                </span>
             </div>
+            <br />
             <div class="btn btn-default">
                 {{('View' | r) + ' ' + ('Product' | r) | xlat}}
             </div>
@@ -15,7 +23,7 @@
     <div class="col-sm-8 text-left">
         <div class="panel-body">
             <h3>{{LineItem.Product.Name}}
-                <small class="pull-right text-info">{{LineItem.Product.ExternalID}}</small>
+                <!--<small class="pull-right text-info">{{LineItem.Product.ExternalID}}</small>-->
             </h3>
             <p ng-bind-html="trustedDescription(LineItem.Product)" ng-show="LineItem.Product.Description" />
             <section class="hidden-xs hidden-sm panel-body">
@@ -27,11 +35,33 @@
                 <p ng-show="LineItem.Product.UnitOfMeasure">
                     {{'Unit of Measure' | r | xlat}}: {{LineItem.Product.UnitOfMeasure}}
                 </p>
-
-                <p ng-show="LineItem.Product.DisplayInventory && inventoryDisplay(LineItem.Product, LineItem.Variant) != undefined">
+                <!--why is this commented out?-->
+                <!--<p ng-show="LineItem.Product.DisplayInventory && inventoryDisplay(LineItem.Product, LineItem.Variant) != undefined">
                     {{'Quantity Available' | r | xlat}}: {{inventoryDisplay(LineItem.Product, LineItem.Variant) }}
-                </p>
+                </p>-->
+                <p class="small text-info">ID: {{LineItem.Product.ExternalID}}</p>
             </section>
+
+            <!-- PW-14681 Add to Order from Product List Page -->
+            <form name="addToOrderForm" ng-submit="addToOrder()">
+                <div class="view-form-icon" ng-show="allowAddToOrderInProductList">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                            <label class="required">{{'Quantity' | r | xlat}}</label>
+                            <quantityfield required="true" calculated="calcVariantLineItems" lineitem="LineItem" class="quantity"/>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <button style="height:52px;" class="btn btn-default btn-block btn-md" type="submit" ng-disabled="addToOrderForm.$invalid">
+                                <loadingindicator  ng-show="displayLoadingIndicator" />
+                                <i ng-show="lineItemErrors.length > 0" class="fa fa-warning"></i>
+                                Add To Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- PW-14681 Add to Order from Product List Page -->
+
         </div>
     </div>
     <section class="hidden-lg hidden-md" ng-show="showSwipe" ng-swipe-right="showSwipe = false">

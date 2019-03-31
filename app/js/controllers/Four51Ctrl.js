@@ -1,5 +1,5 @@
-four51.app.controller('Four51Ctrl', ['$scope', '$route', '$location', 'Punchout', '$451', 'User', 'Order', 'Security', 'OrderConfig', 'Category', 'AppConst','XLATService', 'GoogleAnalytics',
-	function ($scope, $route, $location, Punchout, $451, User, Order, Security, OrderConfig, Category, AppConst, XLATService, GoogleAnalytics) {
+four51.app.controller('Four51Ctrl', ['$scope', '$route', '$location', '$451', 'User', 'Order', 'Security', 'OrderConfig', 'Category', 'AppConst','XLATService', 'GoogleAnalytics',
+	function ($scope, $route, $location, $451, User, Order, Security, OrderConfig, Category, AppConst, XLATService, GoogleAnalytics) {
 		$scope.AppConst = AppConst;
 		$scope.scroll = 0;
 		$scope.isAnon = $451.isAnon; //need to know this before we have access to the user object
@@ -21,26 +21,12 @@ four51.app.controller('Four51Ctrl', ['$scope', '$route', '$location', 'Punchout'
 				});
 		}
 
-		//Punchout
-		$scope.PunchoutSession = Punchout.punchoutSession;
-
 		function init() {
 			if (Security.isAuthenticated()) {
 				User.get(function (user) {
 					$scope.user = user;
 					$scope.user.Culture.CurrencyPrefix = XLATService.getCurrentLanguage(user.CultureUI, user.Culture.Name)[1];
 					$scope.user.Culture.DateFormat = XLATService.getCurrentLanguage(user.CultureUI, user.Culture.Name)[2];
-
-					//Punchout
-					angular.forEach($scope.user.Permissions,function(permission){
-						if(permission == "PunchoutUser"){
-							$scope.PunchoutUser = true;
-
-							if($scope.PunchoutSession && $scope.PunchoutSession.PunchOutOperation == 'Edit') $location.path('cart');
-							else if($scope.PunchoutSession && $scope.PunchoutSession.PunchoutLandingCategory) $location.path('catalog/' + $scope.PunchoutSession.PunchoutLandingCategory);
-							else if($scope.PunchoutSession && $scope.PunchoutSession.PunchoutLandingProduct) $location.path('product/' + $scope.PunchoutSession.PunchoutLandingProduct);
-						}
-					});
 
 					if (!$scope.user.TermsAccepted)
 						$location.path('conditions');
