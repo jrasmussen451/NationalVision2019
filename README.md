@@ -152,3 +152,6 @@
 #### Bugs
 * Addresses
 - Quick Address isn't working
+
+* SpecForms
+- review lines 100-101 for Title read only if set as false renders editable on test but not on prod for AB-BCDapptex
