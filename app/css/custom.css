@@ -1083,6 +1083,10 @@ ordersummary .text-info {color:grey}
     color:#003087;
 }
 
+.panel-product-list .unit-of-measure {
+    min-height:20px;
+}
+
 .americas-best .panel-product-list .well h3 {
     color:#0057b8;
 }

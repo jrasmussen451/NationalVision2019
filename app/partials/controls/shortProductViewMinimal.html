@@ -19,9 +19,13 @@
                     <span ng-show="LineItem.Product.QuantityMultiplier > 1">(x {{LineItem.Product.QuantityMultiplier}})</span>
                     {{'for' | xlat}} {{LineItem.PriceSchedule.PriceBreaks[0].Price | culturecurrency}}
                 </p>
-                <p ng-show="LineItem.Product.UnitOfMeasure">
+                <p class="unit-of-measure" ng-if="LineItem.Product.UnitOfMeasure">
                     {{'Unit of Measure' | r | xlat}}: {{LineItem.Product.UnitOfMeasure}}
                 </p>
+                <p class="unit-of-measure" ng-if="!LineItem.Product.UnitOfMeasure">
+                    <!--placeholder for height if no UOM-->
+                </p>
+
 
                 <!--<p ng-show="LineItem.Product.DisplayInventory && inventoryDisplay(LineItem.Product, LineItem.Variant) != undefined">
                     {{'Quantity Available' | r | xlat}}: {{inventoryDisplay(LineItem.Product, LineItem.Variant) }}
