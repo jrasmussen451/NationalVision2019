@@ -16,12 +16,11 @@
 * js/services/emailService.js
 * js/services/logoService.js
 * lib/mandrill.js
-* lib/angular/plugins/ordercloudspecforms.js (why is this here? its duplicated in lib/oc - compare)
-* product-detail-template.html
+* product-detail-template.html (this is just a backup of the og code just in case)
 
 #### Non-merged files from NationalVision repository
 * js/directives/productSearchInput.js (lib/oc)
-* app/lib/angular/plugins/ordercloudspecforms.js (lib/oc) - needs compare
+* app/lib/angular/plugins/ordercloudspecforms.js (lib/oc)
 
 #### Additional Updates
 
