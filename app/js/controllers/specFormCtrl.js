@@ -33,7 +33,8 @@ four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeP
             $scope.userDetails = {};
             $scope.userDetails.Name = $scope.user.FirstName + ' ' + $scope.user.LastName;
 
-            if ($scope.PID === 'AB-BCM') {
+            //if ($scope.PID === 'AB-BCM') { //og Jen 033119
+            if ($scope.PID === 'AB-BCM' || $scope.PID=== 'AB-BCM-NJ' || $scope.PID=== 'EGW-BCM') {
                 $scope.userDetails.managerTitle = "General Manager";
             }
             else {
@@ -43,7 +44,8 @@ four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeP
                 $scope.userDetails.Store = group.Name;
             });
 
-            $scope.UseAbbrTitle = ["AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-Rx pads", "AB-DREX-TPA pads"];
+            //$scope.UseAbbrTitle = ["AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-Rx pads", "AB-DREX-TPA pads"]; //og Jen 033119
+            $scope.UseAbbrTitle = ["AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-RX_PADS", "AB-DREX-TPA pads", "EGW EOD RX PAD", "AB-WA-Rx Pads", "AB-WA-TPA Pads", "FM-WA-TPA Pads", "NJ Rx Pads", "WA-Rx Pads", "NJ TPA Pads", "NJ_Blank_Pads", "TN_FLYERS"];
 
             angular.forEach($scope.addresses, function (address) {
                 if ($scope.userDetails.Store == address.Store) {
@@ -54,6 +56,14 @@ four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeP
                     if ($scope.UseAbbrTitle.indexOf($scope.PID) <= -1) {
                         $scope.userDetails.doctorTitle = address.Title;
                     }
+
+                    //merged from override Jen 033119
+                    var padStores = ["WM-DREX Rx Pad", "FM-WA-Rx Pads", "AB-DREX-TPA pads-SC", "EGW LEASED RX PADS"];
+                    if(padStores.indexOf($scope.PID) > -1){
+                        $scope.userDetails.RxPadStores = address.RxPadStores;
+                    }
+                    //
+
                     $scope.userDetails.Drex = address.Drex;
 
                     /*these are the two variables that vary depending on whether product needs to show Center*/
@@ -84,13 +94,17 @@ four51.app.controller('SpecFormCtrl', ['$scope', '$location', '$route', '$routeP
                     if ($scope.UseAbbrTitle.indexOf($scope.PID) <= -1) {
                         $scope.Variant.Specs.Title.Value = $scope.userDetails.doctorTitle;
                     }
-                    $scope.ReadOnly = ["AB-BCD", "AB-BCDapptex", "AB-BCDex", "EGW-BCD", "WM-BCD", "WM-BCED", "AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-Rx pads", "AB-DREX-TPA pads"];
+                    //$scope.ReadOnly = ["AB-BCD", "AB-BCDapptex", "AB-BCDex", "EGW-BCD", "WM-BCD", "WM-BCED", "AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-Rx pads", "AB-DREX-TPA pads"]; //og Jen 03319
+                    $scope.ReadOnly = ["AB-BCD", "AB-BCDapptex", "AB-BCDex", "EGW-BCD", "WM-BCD", "WM-BCED", "AB-DOC Rx pads", "AB-DOC TPA pads", "AB-DREX-RX_PADS", "AB-DREX-TPA pads", "AB-DREX-TPA pads-SC", "EGW EOD RX PAD", "EGW DREX RX PAD", "AB-BCDex-NJ", "WM-BCD-NJ", "WM-BCED-NJ", "WM-DREX Rx Pad", "WM-DREX TPA", "EGW DREX RX PAD", "EGW LEASED TPA", "EGW EOD TPA PAD", "WM-GEN TPA", "FreeTypePHFX-TPA Pad", "FM-MIL TPA PADS", "EGW-DREX TPA", "WM-DREX Rx Pad"];
                     if ($scope.ReadOnly.indexOf($scope.PID) > -1) {
-                        $scope.Variant.Specs.Title.ReadOnly = true;
+                        $scope.Variant.Specs.Title.ReadOnly = true; //og Jen 033119
+                        //$scope.Variant.Specs.Title.ReadOnly = false; //not sure this is correct doesnt match PROD for AB-BCDapptex?
+
                     }
                 }
                 if ($scope.Variant.Specs.Title && $scope.userDetails.managerTitle) {
-                    $scope.ReadOnly = ["AB-BCM", "EGW-BCM", "FM-BCM", "FM-I-BCM", "MIL-BCM", "WM-BCM"];
+                    //$scope.ReadOnly = ["AB-BCM", "EGW-BCM", "FM-BCM", "FM-I-BCM", "MIL-BCM", "WM-BCM"]; //og Jen 03319
+                    $scope.ReadOnly = ["AB-BCM", "EGW-BCM", "FM-BCM", "FM-I-BCM", "MIL-BCM", "WM-BCM", "AB-BCM-NJ", "WM-BCM-NJ", "MIL-BCM-NJ"];
                     if ($scope.ReadOnly.indexOf($scope.PID) > -1) {
                         $scope.Variant.Specs.Title.Value = $scope.userDetails.managerTitle;
                         $scope.Variant.Specs.Title.ReadOnly = true;
