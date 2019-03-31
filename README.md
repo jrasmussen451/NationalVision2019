@@ -11,7 +11,6 @@
 
 #### Merged files from NationalVision repository
 * js/controllers/contactUsCtrl.js
-* js/directives/productZoom.js
 * js/services/analyticsService.js
 * js/services/buyerResourceServices.js
 * js/services/emailService.js
@@ -24,24 +23,7 @@
 * js/directives/productSearchInput.js (lib/oc)
 * app/lib/angular/plugins/ordercloudspecforms.js (lib/oc) - needs compare
 
-#### Logos based on user group (Example User Group Store #s)
-
-* National Vision (none) - this is too tall on mobile
-* AC Lens (??) per luke, ok to ignore 
-* americas-best (5101)
-* eyeglass-world (8201) - this is too tall on mobile
-* walmart (140)
-* fred-meyer (7603) - this is too tall on mobile
-* military (6103)
-
-
-#### Notes
-* A default image is displayed on the category pages (in the code)
-* If a category has a description, it needs removed (ex: Name Badges)
-* The default image can be overridden on a category basic by using the category description to house an image
-* ex: xxxx
-
-#### Items where 2019 was newer
+#### Additional Updates
 
 ##### Controllers
 * addressListCtrl.js - change in scope.checkAll (36-37)
@@ -63,6 +45,82 @@
 * orderSummary.js
 * paymentSelection.js
 
+##### Views
+###### Controls
+* addressInput.html - adds address shipping for save 
+* approvalInput.html 
+- line 6 adds disabled if "approveClicked" 
+- commented out, this is where we get the bug listed below for Spec Form Control
+
+- adds required class to label
+* customCheckBoxField.html
+* customDateField.html
+* customPhoneField.html
+* customTextField.html
+* customTimeField.html
+
+* fileUpload.html
+
+* login.html - merged in override
+* nav.html - new per new design
+
+* orderBilling.html
+* orderDetails.html
+
+* orderShipping.html
+- !! update for filter on UPS Ground??
+
+* orderSummary.html
+- adds security modal 
+- current redirects to /security but there is no partial for security, check routing!!
+
+* shortProductView.html
+- added PW-14681 Add To Order From  Product List Page?? 
+
+- adds Kit logic
+* shortProductViewGallery.html
+* shortProductViewInline.html
+* shortProductViewMinimal.html
+
+###### Messages
+* contactus.html
+* home.html
+
+###### Reporting
+* lineItemHistoryGridView.html 
+- adds in Proof / Production URL logic
+
+* orderHistoryDetailsView.html
+- adds in Ship / Bill Company Name
+
+###### Other
+* addressListView.html
+- should addresses be filtered by if they are customer editable? (27)
+
+* branding.html
+- reset to default / not in use
+
+* copyrightView.html
+- powered by SupplyLogic (6-7)
+
+* favoriteOrderListView.html
+* messageListView.html
+* messageView.html
+* orderPrintView.html
+- adds in Payment Method undetermined
+
+* orderSearchView.html
+- pagination is commented out (144-147)
+
+* userView.html
+- ViewSelfAmin permissions is commented out (11-13)
+
+* index.html
+- favicons (9-10)
+- adds lib/oc (118-137)
+- do we need these services: tableTent, menuImage, punchoutService (215-219) !!??
+- comment out tree.js (239)
+
 ##### Services
 * navService.js
 * orderConfigService.js
@@ -75,7 +133,23 @@
 * config/js
 * routing/js 
 
+#### Logos based on user group (Example User Group Store #s)
+
+* National Vision (none) - this is too tall on mobile
+* AC Lens (??) per luke, ok to ignore 
+* americas-best (5101)
+* eyeglass-world (8201) - this is too tall on mobile
+* walmart (140)
+* fred-meyer (7603) - this is too tall on mobile
+* military (6103)
+
+
+#### Notes
+* A default image is displayed on the category pages (in the code)
+* If a category has a description, it needs removed (ex: Name Badges)
+* The default image can be overridden on a category basic by using the category description to house an image
+* ex: xxxx
 
 #### Bugs
-#### Updates Needed
-* Messages/contactus.html - is Doug Hand still the Account Director?
+* Addresses
+- Quick Address isn't working
