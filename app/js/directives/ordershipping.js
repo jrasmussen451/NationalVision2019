@@ -3,7 +3,6 @@ four51.app.directive('ordershipping', ['Order', 'Shipper', 'Address', 'AddressLi
 		restrict: 'AE',
 		templateUrl: 'partials/controls/orderShipping.html',
 		controller: ['$scope', function($scope) {
-			var CCIDFedEx = Resources.CCIDFedEx;
 			AddressList.clear();
 			AddressList.shipping(function(list) {
 				$scope.shipaddresses = list;
