@@ -1842,3 +1842,41 @@ body {margin-bottom:0;}
     );
 }*/
 /**************footer*****************/
+
+
+/*spec forms image selector*/
+.selection-thumbnail .photo-selection {
+    border: 3px solid transparent;
+    cursor: pointer;
+    box-shadow: 2px 2px 1px #888;
+}
+.selection-thumbnail .photo-selection.selected {
+    border-color: red;
+    box-shadow: 5px 5px 3px #888;
+}
+
+.selection-thumbnail img {
+    -webkit-transition:all 0.2s linear;
+    -moz-transition:all 0.2s linear;
+    transition:all 0.2s linear;
+    -webkit-backface-visibility: hidden;
+    background-color:#fff;
+    position:relative;
+}
+.selection-thumbnail img:hover {
+    -webkit-transform: scale(3);
+    -moz-transform: scale(3);
+    transform: scale(3);
+    z-index:10;
+}
+
+
+.selection-thumbnail [class*="col-"] {
+    margin:0 0 20px;
+    padding:0 5px;
+}
+
+.selection-thumbnail [class*="col-"]:nth-of-type(7),
+.selection-thumbnail [class*="col-"]:nth-of-type(13){
+    clear:both;
+}
