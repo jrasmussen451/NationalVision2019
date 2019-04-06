@@ -154,3 +154,7 @@
 
 * SpecForms
 - review lines 100-101 for Title read only if set as false renders editable on test but not on prod for AB-BCDapptex
+
+* ProductZoom
+- cant get this work not sure why, created _TestZoom PDT with updated code
+- https://github.com/Four51/CustomSolutions/blob/master/Product%20Zoom/README.md
