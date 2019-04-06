@@ -117,7 +117,6 @@
 * index.html
 - favicons (9-10)
 - adds lib/oc (118-137)
-- do we need these services: tableTent, menuImage, punchoutService (215-219) !!??
 - comment out tree.js (239)
 
 ##### Services
