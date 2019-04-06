@@ -108,8 +108,14 @@
 * orderPrintView.html
 - adds in Payment Method undetermined
 
+* orderDetails.html
+- hide custom order field if NVISupplierShipDay (45-57)
+
 * orderSearchView.html
 - pagination is commented out (144-147)
+
+* orderShipping.html
+- filter ship method UPS Ground (56, 139)
 
 * userView.html
 - ViewSelfAmin permissions is commented out (11-13)

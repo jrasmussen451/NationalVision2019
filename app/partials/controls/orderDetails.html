@@ -42,10 +42,20 @@
             </div>
             <div ng-show="currentOrder.OrderFields">
                 <hr />
-                <div ng-repeat="field in currentOrder.OrderFields">
+                <!--<div ng-repeat="field in currentOrder.OrderFields">
                     <customtextfield customfield="field" ng-if="field.ControlType == 'Text'" ng-required="field.IsRequired" />
                     <customselectionfield customfield="field" ng-if="field.ControlType == 'Selection'" ng-required="field.IsRequired" />
+                </div>-->
+                <!--from old repo, this causes the specific ship day field not to show - should it show?-->
+                <!--PW-15096 Custom Order Field-->
+                <div ng-repeat="field in currentOrder.OrderFields">
+                    <span ng-if="field.Name != 'NVISupplierShipDay'">
+                        <customtextfield customfield="field" ng-if="field.ControlType == 'Text'" ng-required="field.IsRequired" />
+                    </span>
+                <!--PW-15096 Custom Order Field-->
+                    <customselectionfield customfield="field" ng-if="field.ControlType == 'Selection'" ng-required="field.IsRequired" />
                 </div>
+
             </div>
         </form>
     </div>

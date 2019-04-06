@@ -53,7 +53,7 @@
                                     <select class="form-control" ng-change="updateShipper()" name="shipMethod"
                                             ng-model="currentOrder.LineItems[0].ShipperName"
                                             ng-show="user.ShipMethod.ShipperSelectionType == 'UserDropDown'"
-                                            ng-options="shipper.Name as (shipper.Name + ' ' + (shipper.ShippingRate.Price | currency | xlat)) for shipper in shippers"
+                                            ng-options="shipper.Name as shipper.Name for shipper in shippers | filter:{Name: 'UPS Ground'}"
                                             ng-required="!currentOrder.IsMultipleShip() && user.ShipMethod != null" >
                                         <option value=""></option>
                                     </select>
@@ -62,16 +62,16 @@
                             </div>
                             <div class="order-location" ng-show="!currentOrder.IsMultipleShip() && orderShipAddress.ID">
                                 <p><strong><small>{{('Shipping' | r) + ' ' + ('Location' | r) | xlat}}</small></strong></p>
-                                <p ng-show="orderShipAddress.AddressName"><small>{{orderShipAddress.AddressName}}</small></p>
+                                <!--<p ng-show="orderShipAddress.AddressName"><small>{{orderShipAddress.AddressName}}</small></p>-->
                                 <p ng-show="orderShipAddress.CompanyName"><small>{{orderShipAddress.CompanyName}}</small></p>
                                 <p ng-show="(orderShipAddress.FirstName || orderShipAddress.LastName) && (!user.Permissions.contains('EditShipToName') && !orderShipAddress.IsCustEditable)">
                                     <small>{{orderShipAddress.FirstName + ' ' + orderShipAddress.LastName}}</small>
                                 </p>
                                 <div class="row" ng-show="!currentOrder.IsMultipleShip() && user.Permissions.contains('EditShipToName') && (orderShipAddress && !orderShipAddress.IsCustEditable)">
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input class="form-control" type="text" ng-model="currentOrder.LineItems[0].ShipFirstName" placeholder="{{('First' | r) + ' ' + ('Name' | r) | xlat}}" />
                                     </div>
-                                    <div class="col-sm-2">
+                                    <div class="col-sm-4">
                                         <input class="form-control" type="text" ng-model="currentOrder.LineItems[0].ShipLastName" placeholder="{{('Last' | r) + ' ' + ('Name' | r) | xlat}}" />
                                     </div>
                                 </div>
@@ -136,7 +136,7 @@
                                         <label ng-class="{required: currentOrder.IsMultipleShip() && user.ShipMethod != null}">{{('Shipping' | r) + ' ' + ('Method' | r) | xlat}}</label>
                                         <select class="form-control" ng-change="updateShipper(item)"
                                                 ng-show="user.ShipMethod.ShipperSelectionType == 'UserDropDown'"
-                                                ng-options="shipper.Name as shipper.Name for shipper in shippers | noliverates"
+                                                ng-options="shipper.Name as shipper.Name for shipper in shippers | noliverates | filter:{Name: 'UPS Ground'}"
                                                 ng-model="item.ShipperName"
                                                 ng-required="currentOrder.IsMultipleShip() && user.ShipMethod != null" >
                                             <option value=""></option>
@@ -151,7 +151,7 @@
                                                type="text" ng-model="item.ShipAccount" autocomplete="off" ng-required="showShipAccountNumber" />
                                         <i class="fa fa-book"></i>
                                     </div>
-                                    <div ng-show="shipAccountNumbers.length > 1">
+                                    <!--<div ng-show="shipAccountNumbers.length > 1">
                                         <label class="required">{{('Shipping' | r) + ' ' + ('Account' | r) + ' ' + ('Number' | r) | xlat}}</label>
                                         <div>
                                             <select class="form-control" ng-model="item.ShipAccount" ng-options="account for account in shipAccountNumbers" ng-required="showShipAccountNumber">
@@ -159,7 +159,7 @@
                                             </select>
                                         </div>
                                         <i class="fa fa-edit"></i>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>
