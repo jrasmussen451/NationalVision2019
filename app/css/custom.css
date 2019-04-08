@@ -246,10 +246,11 @@ a:hover, a:focus {
     border-radius:0;
 }
 
-.btn-primary {
+.btn-primary,
+.navbar-utility minicart .btn-primary {
     background-color: #fff;
     color:#00529b;
-    border-color: #00529b;
+    border-color: #fff;
 }
 
 .btn-primary:hover,
@@ -259,22 +260,23 @@ a:hover, a:focus {
 .open .dropdown-toggle.btn-primary {
     color: #ffffff;
     background-color: #00529b;
-    border-color: #00529b;
+    border-color: #fff;
+    box-shadow:none;
+    transition:none;
 }
 
-.americas-best .btn-primary {
-    background-color: #fff;
+.americas-best .btn-primary,
+.americas-best .navbar-utility minicart .btn-primary {
     color:#a6192e;
-    border-color: #a6192e;
 }
 
 .americas-best .btn-primary:hover,
 .americas-best .btn-primary:focus,
 .americas-best .btn-primary:active,
 .americas-best .btn-primary.active,
-.americas-best .open .dropdown-toggle.btn-primary {
+.americas-best .open .dropdown-toggle.btn-primary,
+.americas-best .navbar-utility minicart .btn-primary:hover {
     background-color: #a6192e;
-    border-color: #a6192e;
     color:#fff;
 }
 
@@ -282,24 +284,64 @@ a:hover, a:focus {
     color:#a6192e;
 }
 
-.eyeglass-world .btn-primary {
+.eyeglass-world .btn-primary,
+.eyeglass-world .navbar-utility minicart .btn-primary {
     background-color: #fff;
     color:#da291c;
-    border-color: #da291c;
 }
 
 .eyeglass-world .btn-primary:hover,
 .eyeglass-world .btn-primary:focus,
 .eyeglass-world .btn-primary:active,
 .eyeglass-world .btn-primary.active,
-.eyeglass-world .open .dropdown-toggle.btn-primary {
+.eyeglass-world .open .dropdown-toggle.btn-primary,
+.eyeglass-world .navbar-utility minicart .btn-primary:hover {
     background-color: #da291c;
-    border-color: #da291c;
     color:#fff;
 }
 
 .eyeglass-world .text-primary {
     color:#da291c;
+}
+
+.walmart .btn-primary,
+ .walmart .navbar-utility minicart .btn-primary {
+     background-color: #fff;
+     color:#ffb81c;
+ }
+
+.walmart .btn-primary:hover,
+.walmart .btn-primary:focus,
+.walmart .btn-primary:active,
+.walmart .btn-primary.active,
+.walmart .open .dropdown-toggle.btn-primary,
+.walmart .navbar-utility minicart .btn-primary:hover { 
+    background-color: #ffb81c;
+    color:#fff;
+}
+
+.fred-meyer .btn-primary,
+.fred-meyer .navbar-utility minicart .btn-primary,
+.military .btn-primary,
+.military .navbar-utility minicart .btn-primary {
+    background-color: #fff;
+    color:#da291c;
+}
+
+.fred-meyer .btn-primary:hover,
+.fred-meyer .btn-primary:focus,
+.fred-meyer .btn-primary:active,
+.fred-meyer .btn-primary.active,
+.fred-meyer .open .dropdown-toggle.btn-primary,
+.fred-meyer .navbar-utility minicart .btn-primary:hover,
+.military .btn-primary:hover,
+.military .btn-primary:focus,
+.military .btn-primary:active,
+.military .btn-primary.active,
+.military .open .dropdown-toggle.btn-primary,
+.military .navbar-utility minicart .btn-primary:hover {
+    background-color: #da291c;
+    color:#fff;
 }
 
 /**************buttons*****************/
@@ -455,11 +497,32 @@ a:hover, a:focus {
     top:0;
     min-height:40px;
     max-height:40px;
-    background:rgba(15, 15, 15, 0.8);
+    /*background:rgba(15, 15, 15, 0.8);*/
+    background:#003087;
     width:100%;
     right:0;
     left:0;
     max-width:1170px;
+}
+
+.americas-best .navbar-fixed {
+    background:#0057b8;
+}
+
+.eyeglass-world .navbar-fixed {
+    background:#007dba;
+}
+
+.walmart .navbar-fixed {
+    background:#0072ce;
+}
+
+.fred-meyer .navbar-fixed {
+    background:#071d49;
+}
+
+.military .navbar-fixed {
+    background:#002d72;
 }
 
 @media(min-width:992px) {
@@ -483,7 +546,6 @@ a:hover, a:focus {
         width:60.2%;
     }
 }
-
 
 @media(min-width:1599px) {
     .navbar-fixed {
@@ -550,7 +612,7 @@ a:hover, a:focus {
 .navbar-utility li {
     float:left;
     color:#fff;
-    padding:0 15px;
+    padding-right:30px;
 }
 
 .navbar-utility li a {
@@ -558,7 +620,28 @@ a:hover, a:focus {
 }
 
 .navbar-utility .dropdown-menu {
-    background:rgba(15, 15, 15, 0.8);
+    /*background:rgba(15, 15, 15, 0.8);*/
+    background:#003087;
+}
+
+.americas-best .navbar-utility .dropdown-menu {
+    background:#0057b8;
+}
+
+.eyeglass-world .navbar-utility .dropdown-menu {
+    background:#007dba;
+}
+
+.walmart .navbar-utility .dropdown-menu {
+    background:#0072ce;
+}
+
+.fred-meyer .navbar-utility .dropdown-menu {
+    background:#071d49;
+}
+
+.military .navbar-utility .dropdown-menu {
+    background:#002d72;
 }
 
 .navbar-utility .dropdown-menu li {
@@ -571,16 +654,15 @@ a:hover, a:focus {
 }
 
 .dropdown-menu li a:hover {
-    background-color:#003087; /*primary*/
     background-color:#00529b; /*secondary*/
     color:#fff;
+    border:0;
+    box-shadow:none;
 }
 
 .americas-best .dropdown-menu li a:hover {
-    background-color:#0057b8; /*primary*/
     background-color:#a6192e; /*secondary*/
 }
-
 
 .americas-best .dropdown-menu > li > a:hover,
 .americas-best .dropdown-menu > li > a:focus,
@@ -591,22 +673,18 @@ a:hover, a:focus {
 }
 
 .eyeglass-world .dropdown-menu li a:hover {
-    background-color:#007dba; /*primary*/
     background-color:#da291c; /*secondary*/
 }
 
 .walmart .dropdown-menu li a:hover {
-    background-color:#0072ce; /*primary*/
     background-color:#ffb81c; /*secondary*/
 }
 
 .fred-meyer .dropdown-menu li a:hover {
-    background-color:#071d49; /*primary*/
     background-color:#da291c; /*secondary*/
 }
 
 .military .dropdown-menu li a:hover {
-    background-color:#002d72; /*primary*/
     background-color:#da291c; /*secondary*/
 }
 
@@ -734,13 +812,35 @@ minicart .minicart-detail {
     padding: 10px;
     position: absolute;
     right: 0; /*10px*/
-    top:25px;
-    background-color:rgba(15, 15, 15, 0.8);
+    top:21px;
+    /*background-color:rgba(15, 15, 15, 0.8);*/
+    background:#003087;
     border:0;
     border-radius:0;
     z-index: 1;
     min-width: 300px;
 }
+
+.americas-best minicart .minicart-detail {
+    background:#0057b8;
+}
+
+.eyeglass-world minicart .minicart-detail {
+    background:#007dba;
+}
+
+.walmart minicart .minicart-detail {
+    background:#0072ce;
+}
+
+.fred-meyer minicart .minicart-detail {
+    background:#071d49;
+}
+
+.military minicart .minicart-detail {
+    background:#002d72;
+}
+
 .minicart .fa-shopping-cart {margin-right:5px}
 .minicart .minicart-detail .fa-caret-up {position: absolute;top: -18px;right: 10px;color: #fff;}
 .minicart .minicart-detail ul .row {position:relative;z-index:1000}
