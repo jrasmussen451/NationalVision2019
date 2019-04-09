@@ -19,7 +19,7 @@ lt grey #E7E7E7
 
 **NVI**
 blue    #003087
-secondary #00529b (from nationalvision.com)
+secondary #00529c (from nationalvision.com)
 
 **AC Lens**
 blue    #003087
@@ -128,8 +128,7 @@ h2 {
     border-color:#4f4f4f;
 }
 
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
-    border-bottom-right-radius: 4px;
+/*    border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
 }
 .btn-group > .btn:last-child:not(:first-child),
@@ -146,12 +145,11 @@ h2 {
 .btn-group > .btn-group:last-child > .btn:first-child {
     border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
-}
+}*/
 
 .btn-success .badge {
     color: #5C8727;
 }
-
 
 .text-info {color:#000}
 .order-search-view .panel-body,
@@ -249,17 +247,18 @@ a:hover, a:focus {
 .btn-primary,
 .navbar-utility minicart .btn-primary {
     background-color: #fff;
-    color:#00529b;
-    border-color: #fff;
+    color:#00529c;
+    border-color: #00529c;
 }
 
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
-.open .dropdown-toggle.btn-primary {
+.open .dropdown-toggle.btn-primary,
+.navbar-utility minicart .btn-primary:hover {
     color: #ffffff;
-    background-color: #00529b;
+    background-color: #00529c;
     border-color: #fff;
     box-shadow:none;
     transition:none;
@@ -268,6 +267,7 @@ a:hover, a:focus {
 .americas-best .btn-primary,
 .americas-best .navbar-utility minicart .btn-primary {
     color:#a6192e;
+    border:1px solid #a6192e;
 }
 
 .americas-best .btn-primary:hover,
@@ -288,6 +288,7 @@ a:hover, a:focus {
 .eyeglass-world .navbar-utility minicart .btn-primary {
     background-color: #fff;
     color:#da291c;
+    border:1px solid #da291c;
 }
 
 .eyeglass-world .btn-primary:hover,
@@ -308,6 +309,7 @@ a:hover, a:focus {
  .walmart .navbar-utility minicart .btn-primary {
      background-color: #fff;
      color:#ffb81c;
+    border:1px solid #ffb81c;
  }
 
 .walmart .btn-primary:hover,
@@ -315,7 +317,7 @@ a:hover, a:focus {
 .walmart .btn-primary:active,
 .walmart .btn-primary.active,
 .walmart .open .dropdown-toggle.btn-primary,
-.walmart .navbar-utility minicart .btn-primary:hover { 
+.walmart .navbar-utility minicart .btn-primary:hover {
     background-color: #ffb81c;
     color:#fff;
 }
@@ -326,6 +328,7 @@ a:hover, a:focus {
 .military .navbar-utility minicart .btn-primary {
     background-color: #fff;
     color:#da291c;
+    border:1px solid #da291c;
 }
 
 .fred-meyer .btn-primary:hover,
@@ -344,6 +347,26 @@ a:hover, a:focus {
     color:#fff;
 }
 
+.navbar-utility minicart .btn-primary,
+.americas-best .navbar-utility minicart .btn-primary,
+.eyeglass-world .navbar-utility minicart .btn-primary,
+.walmart .navbar-utility minicart .btn-primary,
+.fred-meyer .navbar-utility minicart .btn-primary,
+.military .navbar-utility minicart .btn-primary {
+    border:1px solid #fff;
+}
+
+.btn-group > .btn:first-child {
+    border-radius:0;
+    border-top-left-radius:4px;
+    border-bottom-left-radius:4px;
+}
+
+.btn-group > .btn:last-child {
+    border-radius:0;
+    border-top-right-radius:4px;
+    border-bottom-right-radius:4px;
+}
 /**************buttons*****************/
 
 /**************alerts*****************/
@@ -654,7 +677,7 @@ a:hover, a:focus {
 }
 
 .dropdown-menu li a:hover {
-    background-color:#00529b; /*secondary*/
+    background-color:#00529c; /*secondary*/
     color:#fff;
     border:0;
     box-shadow:none;
@@ -1560,8 +1583,8 @@ ul.burgers .badge {margin-left:3px;}
 }
 
 .menu-content .parent li.active {
-    background-color:#00529b;
-    border-left:10px solid #00529b;
+    background-color:#00529c;
+    border-left:10px solid #00529c;
 }
 
 .americas-best .menu-content .parent li.active {
@@ -1797,11 +1820,11 @@ body {margin-bottom:0;}
 }
 
 .page-footer a {
-    border:1px solid #00529b;
+    border:1px solid #00529c;
 }
 
 .page-footer a:hover {
-    background-color:#00529b;
+    background-color:#00529c;
 }
 
 .americas-best .page-footer a {
